@@ -5,14 +5,21 @@
 
       <div class="flex gap-3 pb-2">
 
-        <h2 class="cursor-pointer" :class="findBookPage ? 'underline underline-offset-2' : ''"
-          @click="findBookPage = true">Find Book</h2> |
-        <h2 class="cursor-pointer" :class="!findBookPage ? 'underline underline-offset-2' : ''"
-          @click="findBookPage = false">My favorite
+        <h2 class="cursor-pointer hover:text-indigo-600"
+          :class="activePage === 'search' ? 'underline underline-offset-2 font-bold' : ''" @click="activePage = 'search'">
+          Find Book
+        </h2> |
+        <h2 class="relative cursor-pointer hover:text-indigo-600 "
+          :class="activePage === 'favorite' ? 'underline underline-offset-2 font-bold' : ''"
+          @click="activePage = 'favorite'">My
+          favorite <span
+            class="absolute w-4 h-4 text-xs text-center text-white bg-red-500 rounded-full -z-10 -top-0 -end-3">{{
+              bookstore.length
+            }}</span>
         </h2>
       </div>
 
-      <div v-if="findBookPage" class="relative">
+      <div v-if="activePage === 'search'" class="relative">
         <div class="absolute inset-y-0 flex items-center start-2">
           <i class="pi pi-search text-slate-600"></i>
         </div>
@@ -28,27 +35,26 @@
     </div>
 
 
-  </div>
-  <div class="container px-4 mx-auto">
+    <div class="container mx-auto">
 
-    <BooksCard v-if="findBookPage" :books="books" @handle-likes="handleLikes" empty-msg="Search book that you like." />
-    <BooksCard v-if="!findBookPage" :books="bookstore.favorite" @handle-likes="handleLikes"
-      empty-msg="You dont have your favorite books list yet." />
+      <BooksCard v-if="activePage === 'search'" :books="books" @handle-likes="handleLikes"
+        empty-msg="Search book that you like." />
+      <BooksCard v-if="activePage === 'favorite'" :books="bookstore" @handle-likes="handleLikes"
+        empty-msg="You dont have your favorite books list yet." />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { useStorage } from '@vueuse/core'
 import BooksCard from '@/components/BooksCard.vue';
-import { bookstore } from '@/store/bookstore';
-// import BookFinderFav from '@/components/BookFinderFav.vue';
-import { ref } from 'vue'
+import { bookstore, activePage } from '@/store/bookstore';
+import { computed, onMounted, ref } from 'vue'
 const search = ref<string>("");
-// const myFavBooks = ref<any[]>([])
 
-const findBookPage = ref<boolean>(true)
 // const GApi = import.meta.env.VITE_API_GAPI
 let books = ref<any[]>([])
+
+
 // onMounted(async () => {
 //   const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=harry+potter`, { method: "GET" });
 //   const data = await response.json()
@@ -61,52 +67,34 @@ let books = ref<any[]>([])
 //   if()
 // })
 
-// const state = useStorage('my-fav', myFavBooks.value)
-// console.log(state.value);
 
 
 
-function handleLikes(item: any, idx: number) {
-  bookstore.favorite.push({ ...item })
 
-  // const checkIDFav = computed(() => {
-  //   if (books.value.filter(val => val.id) === myFavBooks.value.filter(val => val.id)) {
-  //     return true
-  //   }
-  //   return false
-  // })
+function handleLikes(item: any) {
 
-  console.log(bookstore.favorite);
+  const bookfavid = computed(() => {
+    return bookstore.value.map(val => val.id)
+  })
 
+  if (bookfavid.value.includes(item.id)) {
 
+    // // CARA SATU, Gunakan FOR LOOP
+    // for (let i = 0; i < bookstore.favorite.length; i++) {
+    //   if (bookstore.favorite[i].id === item.id) {
+    //     bookstore.favorite.splice(i, 1);
+    //     i--;
+    //   }
+    // }
 
-  // const checkSameID = computed(() => {
-  //   if (checkIDFav.includes(item.id)) {
-  //     return true
-  //   }
-  //   return false
-  // })
+    // // Cara DUA, Gunakan Filter
+    return bookstore.value = bookstore.value.filter((book) => {
+      return book.id !== item.id;
+    });
 
+  }
 
-
-  const findIdx = books.value.findIndex(val => val.id === item.id)
-  console.log(findIdx);
-
-  //CARI CARA LAIN SELAIN MENNGUNAKAN INDEX, 
-  // CARI MENGGUNAKAN BERDASARKAN MEMBANDINGKAN ID DARI ARRAY BOOKS DENGAN FAVORITE BOOKS
-
-  // if (!checkSameID.value) {
-
-  //   // books.value[findIdx].likes = !item.likes
-  //   myFavBooks.value.push({ ...item, likes: true })
-  // }
-  // else {
-  //   // books.value[findIdx].likes = !item.likes
-  //   myFavBooks.value.splice(idx, 1)
-  // }
-
-
-
+  bookstore.value.push({ ...item })
 
 
 }
