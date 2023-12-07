@@ -10,6 +10,9 @@
   <div class="p-2">
     <RouterLink to="/book-finder">Book Finder</RouterLink>
   </div>
+  <div class="p-2">
+    <RouterLink to="/shopify">Shopify</RouterLink>
+  </div>
 </template>
 
 <script setup lang="ts">

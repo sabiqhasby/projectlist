@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core';
 import { ref } from 'vue';
 
 const taskRef = ref("")
-const myTask = ref<string[]>([])
-const myDoneTask = ref<string[]>([])
+const myTask = ref(useStorage("myTask", [] as string[]))
+const myDoneTask = ref(useStorage("myDoneTask", [] as string[]))
 
 function handleAddTask() {
   if (!taskRef.value) {

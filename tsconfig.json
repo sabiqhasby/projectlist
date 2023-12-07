@@ -21,13 +21,14 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/plugins/router.js"
+    "src/plugins/router.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import BooksCard from '@/components/BooksCard.vue';
 import { bookstore, activePage } from '@/store/bookstore';
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 const search = ref<string>("");
 
 // const GApi = import.meta.env.VITE_API_GAPI
