@@ -13,7 +13,7 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 interface SheetContentProps extends DialogContentProps {
-  side?: 'left' | 'right' | 'top' | 'bottom'
+  side?: 'left' | 'right' | 'top' | 'bottom' | 'center'
   class?: string
 }
 
@@ -34,6 +34,7 @@ const sheetVariants = cva(
         left: 'inset-y-0 left-0 h-full w-3/4 border-r border-border data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm',
         right:
           'inset-y-0 right-0 h-full w-3/4  border-l border-border data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm',
+        center: 'right-0 left-0 top-0 bottom-0 bg-tranparent  data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-50'
       },
     },
     defaultVariants: {
@@ -46,19 +47,14 @@ const sheetVariants = cva(
 <template>
   <DialogPortal>
     <DialogOverlay
-      class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-    />
-    <DialogContent
-      :class="cn(sheetVariants({ side: props.side }), props.class)"
-      v-bind="{ ...props, ...emitsAsProps }"
-    >
+      class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+    <DialogContent :class="cn(sheetVariants({ side: props.side }), props.class)" v-bind="{ ...props, ...emitsAsProps }">
       <slot />
 
-      <DialogClose
-        class="absolute top-4 right-4 p-0.5 transition-colors rounded-md hover:bg-secondary"
-      >
+      <DialogClose class="absolute top-4  right-4 p-0.5 transition-colors rounded-md hover:bg-secondary">
         <X class="w-4 h-4 text-muted-foreground" />
       </DialogClose>
     </DialogContent>
   </DialogPortal>
 </template>
+
