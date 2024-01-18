@@ -75,6 +75,6 @@
     @apply border-border font-inter;
   }
   body {
-    @apply bg-slate-200 text-foreground;
+    @apply bg-gradient-to-b from-sky-400 to-purple-600 text-foreground;
   }
 }

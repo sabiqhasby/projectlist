@@ -1,7 +1,7 @@
 <template>
   <div class="container flex flex-col p-4 mx-auto ">
     <div class="w-full my-2 ">
-      <h1 class="my-2 text-xl text-center font-bricolage">Book Finder</h1>
+      <h1 class="my-2 mt-8 text-xl text-center font-bricolage">Book Finder</h1>
 
       <div class="flex gap-3 pb-2">
 

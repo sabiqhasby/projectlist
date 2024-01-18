@@ -1,7 +1,7 @@
 <template>
-  <header class="w-full p-2 bg-slate-300">
+  <header class="fixed z-50 w-full p-2 bg-opacity-50 bg-slate-700 backdrop-blur-md">
     <nav>
-      <div class="flex gap-2">
+      <div class="flex gap-2 text-white">
         <RouterLink to="/">home</RouterLink>
         <RouterLink to="/about">about</RouterLink>
       </div>
