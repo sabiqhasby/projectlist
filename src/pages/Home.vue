@@ -6,7 +6,7 @@
 
   <div class="flex flex-wrap w-full ">
 
-    <Card v-for="card in cardList" variant="blured" class="w-[500px] mt-8 mx-3">
+    <Card v-for="card in cardList" class="w-[500px] mt-8 mx-3" variant="blured">
       <CardHeader>
         <CardTitle>{{ card.name }}</CardTitle>
         <CardDescription class="text-gray-200">{{ card.description }}</CardDescription>
