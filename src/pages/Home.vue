@@ -1,23 +1,26 @@
 <template>
-  <div class="px-2 pt-20 text-2xl font-bold text-white font-bricolage">
+  <div class="h-screen bg-gradient-to-b from-sky-400 to-purple-600 text-foreground">
 
-    These are my project list
+    <div class="px-2 pt-20 text-2xl font-bold text-white font-bricolage">
+
+      These are my project list
+    </div>
+
+    <div class="flex flex-wrap w-full ">
+
+      <Card v-for="card in cardList" class="w-[500px] mt-8 mx-3" variant="blured">
+        <CardHeader>
+          <CardTitle>{{ card.name }}</CardTitle>
+          <CardDescription class="text-gray-200">{{ card.description }}</CardDescription>
+        </CardHeader>
+
+        <CardFooter class="float-right text-sky-500">
+          <RouterLink :to="card.link">go to project</RouterLink>
+        </CardFooter>
+      </Card>
+    </div>
+
   </div>
-
-  <div class="flex flex-wrap w-full ">
-
-    <Card v-for="card in cardList" class="w-[500px] mt-8 mx-3" variant="blured">
-      <CardHeader>
-        <CardTitle>{{ card.name }}</CardTitle>
-        <CardDescription class="text-gray-200">{{ card.description }}</CardDescription>
-      </CardHeader>
-
-      <CardFooter class="float-right text-sky-500">
-        <RouterLink :to="card.link">go to project</RouterLink>
-      </CardFooter>
-    </Card>
-  </div>
-
   <!-- <div class="p-2">
     <RouterLink to="/todo-app">TodoApp</RouterLink>
   </div>
@@ -64,3 +67,4 @@ const cardList = [{
 
 ]
 </script>
+
